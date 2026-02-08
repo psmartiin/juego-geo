@@ -1,0 +1,166 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    background: linear-gradient(#9100ca, #220030);
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.game-container {
+    max-width: 1000px;
+    margin: 5px auto;
+    padding: 0 20px;
+}
+
+/* --- CABECERA Y MARCADOR --- */
+.arriba {
+    justify-self: center;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+/* El nombre de la comarca que hay que buscar */
+#target-comarca {
+    color: #e63946; /* Rojo llamativo */
+    font-weight: 800;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 5px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.stats p {
+    margin: 5px 0;
+}
+
+#score {
+    font-weight: bold;
+    color: #20bf6b;
+}
+
+#message {
+    font-weight: 500;
+    min-height: 1em; /* Para que no salte el diseño si el mensaje está vacío */
+}
+
+/* --- EL MAPA SVG --- */
+.map-wrapper {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    
+    /* Esto asegura que el mapa no se salga de la pantalla */
+    width: 100%;
+    max-height: 75vh; 
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+svg {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+/* --- INTERACTIVIDAD DE LAS COMARCAS --- */
+/* Seleccionamos tanto path como polygon por si acaso */
+path, polygon {
+    fill: #d1d8e0;       /* Color gris base */
+    stroke: #ffffff;     /* Borde blanco entre comarcas */
+    stroke-width: 1px;   /* Grosor del borde */
+    stroke-linejoin: round;
+    cursor: pointer;     /* Manita al pasar el ratón */
+    transition: transform 0.2s;
+    outline: none;       /* Quita el borde azul de selección al hacer clic */
+}
+
+/* Efecto al pasar el ratón por encima (Hover) */
+path:hover, polygon:hover {
+    fill: #666 !important; /* Azul intenso */
+    z-index: 10;
+}
+
+/* --- CLASES DE LÓGICA DEL JUEGO --- */
+
+/* Cuando aciertas: Verde */
+.correct {
+    fill: #20bf6b !important; /* Verde esmeralda */
+    stroke: #178f50;
+    pointer-events: none; /* Ya no se puede volver a clicar */
+}
+
+/* Cuando fallas: Animación roja */
+.wrong {
+    animation: flashRed 0.6s ease-in-out;
+}
+
+/* Definición de la animación de fallo */
+@keyframes flashRed {
+    0% { fill: #eb3b5a; }   /* Rojo */
+    25% { fill: #d1d8e0; }  /* Gris */
+    50% { fill: #eb3b5a; }  /* Rojo otra vez */
+    100% { fill: #d1d8e0; } /* Vuelta a gris */
+}
+
+/* --- BOTÓN DE REINICIAR --- */
+#reset-btn {
+    padding: 12px 25px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+#reset-btn:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+#reset-btn:active {
+    transform: translateY(0);
+}
+
+.volver {margin: 5px 0 0 0;}
+.volver button {border-radius: 10px; padding: 5px 10px;}
+.volver button:hover {scale: 1.05;}
+.volver a {text-decoration: none; color: #000; font-size: 1.5rem;}
+
+
+
+
+
+
+
+/* --- RESPONSIVE (Móvil) --- */
+@media (max-width: 600px) {
+    h1 { font-size: 1.4rem; }
+    #target-comarca { font-size: 1rem; }
+    .stats { flex-direction: column; gap: 5px; }
+    .map-wrapper { padding: 5px; }
+}
